@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Обрані товари</title>
+    <style>
+        /* Стилі для навігаційного меню */
+        nav {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 10px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        /* Стилі для товарів */
+        .product {
+            margin-bottom: 20px;
+        }
+
+        .product img {
+            max-width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Навігаційне меню -->
+    <nav>
+        <ul>
+            <li><a href="{% url 'home' %}">Головна</a></li>
+            <li><a href="{% url 'product' %}">Асортимент</a></li>
+            <li><a href="{% url 'favorites' %}">Обране</a></li>
+            <li><a href="{% url 'cart' %}">Корзина</a></li>
+            <li><a href="{% url 'logout' %}"><button>Вийти</button></a>
+        </ul>
+    </nav>
+
+    <h1>Обрані товари</h1>
+    {% if favorite_products %}
+        <ul>
+            {% for products in favorite_products %}
+                {% for product in products %}
+                    <li>
+                        <h2>{{ product.title }}</h2>
+                        <p>{{ product.description }}</p>
+                        <p>Ціна: {{ product.price }}</p>
+                    </li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>У вас ще немає обраних товарів.</p>
+    {% endif %}
+</body>
+</html>

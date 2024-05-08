@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Корзина</title>
+    <style>
+        /* Стилі меню навігації */
+        nav {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 10px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        /* Додаткові стилі для корзини */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #ccc;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .total {
+            font-weight: bold;
+        }
+
+        .checkout-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li><a href="{% url 'home' %}">Головна</a></li>
+            <li><a href="{% url 'product' %}">Асортимент</a></li>
+            <li><a href="{% url 'favorites' %}">Обране</a></li>
+            <li><a href="{% url 'cart' %}">Корзина</a></li>
+            <li><a href="{% url 'logout' %}"><button>Вийти</button></a>
+        </ul>
+    </nav>
+
+    <h1>Корзина</h1>
+    <!-- Додайте таблицю для відображення продуктів у корзині -->
+    <table>
+        <thead>
+            <tr>
+                <th>Назва</th>
+                <th>Ціна</th>
+                <th>Кількість</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart_items %}
+            <tr>
+                <td>{{ item.product.title }} <br><br> <a href="{% url 'delete_cart_item' item.id %}" class="checkout-btn">Видалити</a></td>
+                <td>{{ item.product.price }} ₴</td>
+                <td>{{ item.quantity }}</td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h3>Загальна Сума: {{total_price}} ₴</h3>
+    <a href="{% url 'place_order' %}" class="checkout-btn">Оформити замовлення</a>
+
+</body>
+
+</html>

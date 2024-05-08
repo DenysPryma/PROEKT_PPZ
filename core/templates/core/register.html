@@ -1,0 +1,17 @@
+{% extends "base_authentication.html" %}
+
+{% block title %}Create an Account{% endblock %}
+
+{% block content %}
+    <form method="POST" class="form-group">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Register">
+    </form>
+
+    <p>Маєте обліковий запис?</p>
+    <button>
+        <a href="{% url 'login' %}">Увійти</a>
+    </button>
+
+{% endblock %}

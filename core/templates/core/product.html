@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Продукти для замовлення</title>
+    <style>
+        nav {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 10px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .product {
+            margin-bottom: 20px;
+        }
+
+        .product-buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .add-to-cart-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{% url 'home' %}">Головна</a></li>
+            <li><a href="{% url 'product' %}">Асортимент</a></li>
+            <li><a href="{% url 'favorites' %}">Обране</a></li>
+            <li><a href="{% url 'cart' %}">Корзина</a></li>
+            <li><a href="{% url 'logout' %}"><button>Вийти</button></a></li>
+        </ul>
+    </nav>
+    <form method="get">
+        <label for="category">Категорія:</label>
+        <select name="category" id="category">
+            <option value="">Усі категорії</option>
+            {% for category in categories %}
+                <option value="{{ category.name }}">{{ category.name }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Фільтрувати</button>
+    </form>
+    
+    <!-- Відображення товарів -->
+    {% for product in products %}
+        <div class="product">
+            <h2>{{ product.title }}</h2>
+            <p>{{ product.description }}</p>
+            <p>Ціна: {{ product.price }} грн</p>
+            <!-- Форма для додавання товару до корзини -->
+            <form method="post" action="{% url 'save_cart' product.id %}">
+                {% csrf_token %}
+                <button type="submit" class="add-to-cart-btn">Додати до корзини</button>
+            </form>
+            <form action="{% url 'add_to_favorites' product.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Додати до обраного</button>
+            </form>
+        </div>
+    {% endfor %}
+</body>
+</html>

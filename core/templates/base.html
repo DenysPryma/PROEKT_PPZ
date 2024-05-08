@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+
+{% if messages %}
+    {% for message in messages %}
+        {{ message }}
+    {% endfor %}
+{% endif %}
+
+    {% block header %}
+        <div style="display: flex; justify-content: center; margin-bottom: 20px">
+            <div style="display: flex; gap: 20px; align-items: center">
+                {% if user.is_authenticated %}
+                    <p>Hello, {{ user.username }} </p>
+                    <form id="logout-form" method="post" action="{% url 'auth:logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-link">Logout</button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'auth:login' %}">Login</a>
+                    <a href="{% url 'auth:register' %}">Register</a>
+                {% endif %}
+            </div>
+        </div>
+    {% endblock %}
+
+    <div style="text-align: center">
+            {% block content %}
+            {% endblock %}
+    </div>
+
+</body>
+</html>

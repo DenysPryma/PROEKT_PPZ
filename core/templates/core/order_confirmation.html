@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Підтвердження замовлення</title>
+</head>
+<body>
+    <h1>Ваше замовлення успішно оформлено!</h1>
+    <p>Дякуємо за ваше замовлення. Номер вашого замовлення: {{ order.id }}.</p>
+    <a href="{% url 'create_ticket_pay' order %}">Download PDF</a> 
+</body>
+</html>

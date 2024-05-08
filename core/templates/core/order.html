@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оформлення замовлення</title>
+</head>
+<body>
+    <h1>Оформлення замовлення</h1>
+    <form method="POST" action="{% url 'place_order' %}">
+        {% csrf_token %}
+        <label for="name">Ім'я:</label>
+        <input type="text" id="name" name="name" required><br><br>
+        <label for="address">Адреса доставки:</label>
+        <input type="text" id="address" name="address" required><br><br>
+        <label for="phone">Телефон:</label>
+        <input type="text" id="phone" name="phone" required><br><br>
+        <button type="submit">Замовити</button>
+    </form>
+</body>
+</html>
